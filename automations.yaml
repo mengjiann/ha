@@ -1,0 +1,51 @@
+- action:
+  - data:
+      entity_id: switch.mj_light
+    service: switch.turn_off
+  - data:
+      entity_id: switch.main_light
+    service: switch.turn_off
+  - data:
+      entity_id: switch.wei_wei_light
+    service: switch.turn_off
+  alias: Scene Sleep
+  id: '1501085625098'
+  trigger:
+  - payload: 'true'
+    platform: mqtt
+    topic: home/scene/sleep/state
+- action:
+  - data:
+      entity_id: switch.mj_light
+    service: switch.turn_off
+  - data:
+      entity_id: switch.main_light
+    service: switch.turn_off
+  - data:
+      entity_id: switch.air_cond
+    service: switch.turn_off
+  - data:
+      entity_id: switch.wei_wei_light
+    service: switch.turn_off
+  alias: Scene Leaving Home
+  id: '1501172097530'
+  trigger:
+  - payload: 'true'
+    platform: mqtt
+    topic: home/scene/leaving-home/state
+- action:
+  - data:
+      entity_id: switch.air_cond
+    service: switch.turn_on
+  - condition: state
+    entity_id: sun.sun
+    state: 'below_horizon'
+  - data:
+      entity_id: switch.main_light
+    service: switch.turn_on
+  alias: Scene Reaching Home
+  id: '1501172218927'
+  trigger:
+  - payload: 'true'
+    platform: mqtt
+    topic: home/scene/reaching-home/state

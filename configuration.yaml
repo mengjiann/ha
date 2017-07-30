@@ -1,0 +1,106 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: 1.2855
+  longitude: 103.8565
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 0
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Asia/Singapore
+
+# Show links to resources in log and frontend
+introduction:
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Uncomment this to add a password (recommended!)
+   api_password: !secret http_api_password
+  # Uncomment this if you are using SSL or running in Docker etc
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time.
+history:
+
+# View all events in a logbook
+logbook:
+
+# Track the sun
+sun:
+
+# Weather Prediction
+sensor:
+  platform: yr
+
+# Text to speech
+tts:
+  platform: google
+
+# Cloud MQTT
+mqtt:
+    broker: !secret mqtt_broker
+    port: 17040
+    username: !secret mqtt_username
+    password: !secret mqtt_password
+
+# Logger
+logger:
+    default: warning
+    logs:
+        homeassistant.components.mqtt: debug
+
+# Broadlink
+switch:
+  - platform: broadlink
+    host: !secret broadlink_host
+    mac: '34:EA:34:F4:2D:63'
+    timeout: 15
+    switches:
+      air_cond:
+        command_on: 'JgC8AXE6Dg4PKg4PDw4NDw8ODg4PDg8ODg4PDg8NDw4PKg4PDg4PDg4PDQ8ODw4ODyoOKw8qDg8ODw4rDg4PDg8ODg8NDw4ODw4ODw4ODw4PDg0PDg8PDQ8ODw4NDw4PDw0ODw8ODg4ODw4PDQ8ODw4ODg8ODw4ODisPKg8ODw4ODg4PDw0PAAFGcTkPDw0rDw4ODg8ODg8NDw4PDw0PDg4PDQ8ODw4rDw0PDg8ODw0PDg8ODg4OKw4rDyoODw8NDyoPDg8ODw0ODw4PDg4ODw4ODw4ODw4ODhANDw0sDg4OKw8qDyoOKw8ODg4PDg8qDw4ODg4rDisODw4PDQ8ODw4PDRANDw4ODg8OKw4rDw4OKw0PDyoOKw4rDw4PKg4ODg8OKw4PDg4ODw4PDQ8PDg4ODg8ODw4ODg8ODw4ODyoOKw4rDw4PDQ4PDg8ODg8ODw4ODg4PDisOKw4rDw0ODw8ODQ8PDg8NDwwRDg4ODw4ODw0PDw4ODg4PDg8OKw4ODg8PDg4ODg8PDQ8rDg4ODw4ODw4PDg4ODw4ODw4ODw4PDQ4PDw4ODg4PDg8ODg4rDg8ODw4ODisPKg4rDgANBQAAAAAAAAAAAAAAAA=='
+        command_off: 'JgC8AXE6DQ8NLA4PDg4ODw0QDg4PDg4PDQ8OEA0ODhANKw4PDRANDw4PDQ8ODw4ODSwOKw4rDg8OEA0rDQ8NEA4ODg8ODw4ODg8ODw0PDg8NDw4PDhANDg4OEA4NDw4PDg4ODw4PDg4ODw4PDRANDw4ODg8OEA0ODyoQKQ4PDg8NDw4PDg4NAAFIcTkODw4rDg8NEA8ODQ4NEA4PDQ8ODw4PDQ8ODw0sDg4OEA0PDg4ODw4PDg8NKw4rDisODw4ODisODw4PDg4PDg0QDQ8ODw4ODg8ODw0PDg8ODw0PDRAOKw4rDisOKw4ODg8ODw0sDQ8ODw8qDisODw0PDhANDg4PDg8NDw4PDg4NLQ0sDRANKw4PDisOKw4rDg4OKw4PDg8OKw0PDg8ODw0PDw4ODg4PDg8ODg4PDg8NDw4PDisOKw4rDg4ODw4PDg8NDw4PDQ8NEA0PDisOKw4rDg8ODw0PDhANDw4ODg8NEA0PDg8NEA0QDQ8ODg4QDQ4NLA4PDg8ODg4PDQ8OEA4qDg8ODw4ODhANDg4PDg8NDw4PDg8NDw0QDg8NDw4PDQ8OKw4PDg8NDw4PDisOKw4rDgANBQAAAAAAAAAAAAAAAA=='
+      tower_fan:
+        command_on: 'JgCWABU9FjxAEz8TFjwWPBY7PhUUPj0VPhQUPhQ+FD4+FBU9FD4+FEASFzsXOxc7QBIXAALKFD4UPj0VPhQVPRQ+FD4/ExU9PhQ+FBU9FT0VPT4UFT0VPT4UPhUUPRU9FT0+FRQAAswUPhQ+PRU+FBU9FT0UPj4UFT0+FD4UFT0VPRU9PhQVPRU9PhQ+FRQ9FT0VPT4VFAANBQAA'
+# MJ Light desk : 192.168.1.66
+  - platform: mqtt
+    name: "MJ Light"
+    command_topic: "home/light/mj-desk/state/cmnd/Power"
+    payload_on: "on"
+    payload_off: "off"
+# Main Light desk : 192.168.1.54
+  - platform: mqtt
+    name: "Main Light"
+    command_topic: "home/light/main/state/cmnd/Power"
+    payload_on: "on"
+    payload_off: "off"
+# Wei wei desk light : 192.168.1.67
+  - platform: mqtt
+    name: "Wei Wei Light"
+    command_topic: "home/light/wei-wei-desk/state/cmnd/Power"
+    payload_on: "on"
+    payload_off: "off"
+
+group: !include groups.yaml
+automation: !include automations.yaml
